@@ -1,0 +1,10 @@
+5a6,14
+> menuentry "Redemarrer" {
+>     echo "Redemarrer le systeme..."
+>     reboot
+> }
+> 
+> menuentry "Arreter le systeme" {
+>     echo "Arret du systeme..."
+>     halt
+> }
