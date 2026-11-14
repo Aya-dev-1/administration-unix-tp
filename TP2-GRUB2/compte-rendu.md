@@ -21,7 +21,7 @@ Commandes : `[ -d /sys/firmware/efi ] && echo "Mode UEFI" || echo "Mode BIOS (Le
 - `grub2/` : `grubenv`, polices, `grub.cfg`.
 - `uname -r` donne le noyau **en cours d'exécution** ; `rpm -q kernel-core` donne les noyaux **installés** : `5.14.0-687.5.3.el9_8.x86_64`.
 
-![mode, boot et noyau](captures/01-mode-boot-noyau.png)
+![mode, boot et noyau](captures/01-mode-boot-noyau.png.jpeg)
 
 ### 3.2 Analyse de /etc/default/grub
 Commande : `cat /etc/default/grub`
@@ -34,7 +34,7 @@ Commande : `cat /etc/default/grub`
 | `GRUB_ENABLE_BLSCFG` | utiliser la Boot Loader Specification |
 | `GRUB_TIMEOUT_STYLE` | `menu` force l'affichage du menu |
 
-![etc default grub](captures/02-etc-default-grub.png)
+![etc default grub](captures/02-etc-default-grub.png.jpeg)
 
 ### 3.3 Scripts de /etc/grub.d
 Commande : `sudo ls -l /etc/grub.d/`
@@ -48,7 +48,7 @@ Commande : `sudo ls -l /etc/grub.d/`
 
 (`sudo` est nécessaire car ce dossier est réservé à root.) La même capture montre aussi `sudo ls -l /boot`.
 
-![grub.d et boot](captures/03-grub-d-et-boot.png)
+![grub.d et boot](captures/03-grub-d-et-boot.png.jpeg)
 
 ### 3.4 Sauvegardes puis modifications
 Avant de modifier, j'ai sauvegardé les fichiers (`cp -p`) car une erreur dans GRUB peut empêcher le démarrage : `/etc/default/grub`, `40_custom` et `grub.cfg`.
@@ -61,20 +61,20 @@ Modifications faites (voir `configs/diff-grub-default.txt`) :
 | `GRUB_DEFAULT` | saved | 1 (2e entrée du menu) |
 | `GRUB_TIMEOUT_STYLE` | absente | menu |
 
-![diff](captures/05-diff.png)
+![diff](captures/05-diff.png.jpeg)
 
 ### 3.5 Entrées personnalisées dans 40_custom
 Ajout de deux entrées qui utilisent les commandes internes de GRUB : `reboot` et `halt`.
 Contenu visible sur la capture (`sudo cat /etc/grub.d/40_custom`) et dans `configs/40_custom.modifie`. La capture montre aussi `/etc/default/grub` avec les valeurs modifiées.
 
-![40_custom](captures/04-grub-default-et-40custom.png)
+![40_custom](captures/04-grub-default-et-40custom.png.jpeg)
 
 ### 3.6 Régénération de grub.cfg
 Commande : `grub2-mkconfig -o /boot/grub2/grub.cfg`
 
 Modifier `/etc/default/grub` ne change rien tant que `grub.cfg` n'est pas régénéré. Après redémarrage, le menu reste 10 s et affiche « Redemarrer » et « Arreter le systeme ».
 
-![menu grub](captures/06-menu-grub.png)
+![menu grub](captures/06-menu-grub.png.jpeg)
 
 ### 3.7 Réinitialisation du mot de passe root
 Principe : dans GRUB, touche `e` sur l'entrée, ajout de `rd.break` à la ligne `linux`, puis `Ctrl+x`. Le démarrage s'arrête dans l'initramfs avant systemd. Ensuite :
