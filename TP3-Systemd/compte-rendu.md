@@ -150,6 +150,8 @@ Le premier message de `-b` donne la version du noyau (`5.14.0-687.5.3.el9_8`) et
 `journalctl -f` reste en attente et affiche les nouveaux logs au fil de l'eau (arrêt avec `Ctrl+C`). Depuis un second terminal, `sudo ls /root` a fait apparaître la ligne `COMMAND=/bin/ls /root`, et `sudo systemctl restart sshd.service` a fait apparaître `Stopping`, `Stopped`, `Starting`, `Started` dans `journalctl -u sshd.service -f`.
 
 ![journalctl -f](captures/21-journalctl-follow.png)
+![Suivi général des journaux avec journalctl -f](captures/22-journalctl-follow-global.png)
+![Suivi en direct du service SSH](captures/23-journalctl-sshd-follow.png)
 
 ## Conclusion
 systemd est le premier processus (PID 1) qui gère le démarrage par **cibles** et les processus par **unités**. `systemctl` pilote l'état immédiat des services (`start`, `stop`, `reload`, `kill`) et leur démarrage automatique (`enable`, `disable`, `mask`). `journalctl` permet de diagnostiquer grâce aux logs centralisés.
